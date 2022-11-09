@@ -35,6 +35,17 @@ class Database
         }
     }
 
+    public function execute($query,$params = [])
+    {
+        try{
+            $statement = $this->connection->prepare($query);
+            $statement->execute($params);
+            return $statement;
+        }catch (PDOException $e) {
+            die('ERROR: ' . $e->getMessage());
+        }
+    }
+
     public function insert($values)
     {
         $fields =  array_keys($values);
@@ -42,7 +53,6 @@ class Database
         
         $query = 'INSERT INTO '.$this->table.' ('.implode(',',$fields).') VALUES('.implode(',',$binds).')';
 
-        echo $query;
-        exit;
+        $this->execute($query,array_values($values));
     }
 }
