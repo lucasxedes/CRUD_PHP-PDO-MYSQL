@@ -34,4 +34,15 @@ class Database
             die('ERROR: ' . $e->getMessage());
         }
     }
+
+    public function insert($values)
+    {
+        $fields =  array_keys($values);
+        $binds = array_pad([],count($fields),'?');
+        
+        $query = 'INSERT INTO '.$this->table.' ('.implode(',',$fields).') VALUES('.implode(',',$binds).')';
+
+        echo $query;
+        exit;
+    }
 }

@@ -17,6 +17,12 @@ class Vaga
         $this->data = date('Y-m-d H:i:s');
 
         $obDatabase = new Database('vagas');
+        $obDatabase->insert([
+            'titulo' => $this->titulo,
+            'descricao' => $this->descricao,
+            'ativo' => $this->ativo,
+            'data' => $this->data
+        ]);
         
     }
 }
